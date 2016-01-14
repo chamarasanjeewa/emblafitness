@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>B-man</title>
+    <style  ></style>
+    
+  </head>
+
+  <body>
+
+    <html ng-app="boadingBudgetApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    
+    <title>B-man</title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+      <script src="lib/ionic/js/angular/angular-messages.js"></script>
+ <script src="js/app.js"></script>
+ <script src="js/purchase.service.js"></script>
+ <script src="js/list.controller.js"></script>
+  <script src="js/purchaseview.controller.js"></script>
+  <script src="js/sign.controller.js"></script>
+  <script src="js/registeruser.controller.js"></script>
+
+
+    
+  </head>
+
+  <body>
+    
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+      </ion-nav-back-button>
+    </ion-nav-bar>
+             
+    <ion-nav-view></ion-nav-view>
+
+    <script id="templates/form-errors.html" type="text/ng-template">
+        <div class="form-error" ng-message="required">*</div>
+        <div class="form-error" ng-message="minlength">This field must be 9 characters</div>
+        <div class="form-error" ng-message="maxlength">This field must be 9 characters</div>
+    </script>
+
+    <script id="templates/about.html" type="text/ng-template">
+      <ion-view view-title="About">
+        <ion-content padding="true">
+          <h3>B-man is to manage budget</h3>
+          <p>Provides comprehensive features such as summary with graphs and charts, messages and emails.</p>
+          <p></p>
+          <p>
+            <a class="button icon icon-right ion-chevron-right" href="#/tab/home">Home</a>
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/nav-stack.html" type="text/ng-template">
+      <ion-view view-title="Tab Nav Stack">
+        <ion-content padding="true">
+          <p><img src="http://ionicframework.com/img/diagrams/tabs-nav-stack.png" style="width:100%"></p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+  </body>
+</html>
+    
+       
+    
+    
+  </body>
+</html>
