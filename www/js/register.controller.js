@@ -12,8 +12,27 @@
       $timeout(function() {
         $scope.$parent.hideHeader();
       }, 0);
-      registerService.init();
-      registerService.register(user).then(function (_data) {
+
+    
+     /* registerService.init();*/
+      registerService.register(user, function(error, userData) {
+        if (error) {
+          console.log("Error creating user:", error);
+        } else {
+
+            /*  var ref = new Firebase("https://docs-examples.firebaseio.com/web/saving-data/userProfile");
+              ref.set({
+                 username:registerData.username ,
+                 firstName:registerData.firstName,
+                 lastName:registerData.lastName,
+                 phoneNumber:registerData.phoneNumber
+
+              });*/
+          console.log("Successfully created user account with uid:", userData.uid);
+        }
+
+/*
+      .then(function (_data) {
         $scope.user = _data;
         $scope.loading=false;
         $state.go('app.login');
@@ -24,7 +43,7 @@
        
         console.log('error'+_error)
         $scope.loading=false;
-        alert("Error Creating User  " + _error.debug)
+        alert("Error Creating User  " + _error.debug)*/
       });
 
 

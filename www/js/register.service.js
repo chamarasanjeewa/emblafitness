@@ -1,11 +1,10 @@
 (function () {
   'use strict';
   angular.module('boadingBudgetApp').factory('registerService',registerService);
-  registerService.$inject = ['$http','ParseConfiguration','$q'];
+  registerService.$inject = ['$http','ParseConfiguration','$q','$firebase'];
 
-  function registerService($http,ParseConfiguration,$q) {
+  function registerService($http,ParseConfiguration,$q,$firebase) {
     var parseInitialized = false;
-
 
     return {
       init: function () {
@@ -28,7 +27,8 @@
       },
 
       signIn:function(signInData) {
-
+       
+        
         return Parse.User.logIn(signInData.username, signInData.password);
         //return $http.post(apiUrl+'/api/login', signInData);
 
@@ -69,8 +69,9 @@
 
       register:function(registerData) {
 
+            debugger;
 
-        var user = new Parse.User();
+       /* var user = new Parse.User();
 
         user.set("username", registerData.username);
         user.set("password",registerData.password);
@@ -79,6 +80,14 @@
         user.set("email", registerData.email);
         user.set("phoneNumber", registerData.phoneNumber);
         return user.signUp(null, {})
+*/
+
+var ref = new Firebase("blistering-torch-9435.firebaseio.com"); 
+return    ref.createUser({
+  email    : registerData.email,
+  password : registerData.password
+
+});
 
 
       }

@@ -1,5 +1,5 @@
 
-angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','ionic-datepicker'])
+angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','ionic-datepicker','firebase'])
 
 angular.module('boadingBudgetApp').run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -93,8 +93,9 @@ angular.module('boadingBudgetApp').config(function($stateProvider, $urlRouterPro
 });
 
 angular.module('boadingBudgetApp').value('ParseConfiguration', {
-  applicationId: "CiaQ24ctvOlZPQot9sLgQi1f2OdNXfJ5sr6FKPEr",
-  javascriptKey: "5BYUb144Vr1WYRAUW4kOVjKvjN5uBHuoezV4AYnA"
+  applicationId: "HnE16qwAs55KzdexNiFmntJ0ehPOCYqYvVi0Fmsq",
+  javascriptKey: "HuHoGwWTceeTvqHOwNa611QcHjzpDAcmQyuApOCz",
+  googleId:"blistering-torch-9435.firebaseio.com"
 })
 
 angular.module('boadingBudgetApp').directive('usernameAvailable', function($timeout, $q,registerService) {
