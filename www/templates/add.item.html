@@ -1,0 +1,62 @@
+
+<ion-view view-title="Purchase info">
+
+  <ion-content style="background: url(img/login.jpg) center; background-size: cover;">
+    <form name="purchaseForm" novalidate ng-submit="createPurchaseItem()">
+      <div >
+        <label class="item item-input">
+          <span class="input-label">Amount *</span>
+          <input type="number" name="amount" step="0.01" ng-model="formData.amount"  required >
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Date *</span>
+          <ionic-datepicker input-obj="datepickerObject" name="purchasedDate">
+  <button class="button button-block button-positive"> {{formData.date | date:datepickerObject.dateFormat}}</button>
+</ionic-datepicker>
+          <!-- <ionic-datepicker idate="currentDate" disablepreviousdates="true"  callback="datePickerCallback">
+            <button class="button button-block button-positive"> {{ currentDate | date:'dd - MMMM - yyyy' }}    </button>
+          </ionic-datepicker> -->
+    <!--       <input type="date" name="purchasedDate" ng-model="formData.date" required  >
+     -->    </label>
+
+        <label class="item item-input">
+          <span class="input-label">Description</span>
+          <input type="text" name="text" ng-model="formData.text" >
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Category</span>
+          <select ng-model="formData.categoryId">
+            <option selected value="1">Consumer item</option>
+            <option  value="2" >Bill</option>
+          </select>
+        </label>
+
+      </div>
+
+<div>
+       <span class="form-errors" ng-messages="purchaseForm.amount.$dirty && purchaseForm.amount.$error"  >
+                       <span class="form-error" ng-message="required">Amount required</span>
+
+       </span>
+</div>
+      <div>
+        <span class="form-errors" ng-messages="purchaseForm.purchasedDate.$dirty && purchaseForm.purchasedDate.$invalid"  >
+                        <span class="form-error" ng-message="required">Purchased date required</span>
+                    </span>
+      </div>
+      <div class="padding">
+        <button type="submit" class="button button-block button-positive" ng-disabled="!purchaseForm.amount.$dirty|| purchaseForm.$invalid" >
+
+          Save
+          <ion-spinner ng-show="loading" icon="spiral">
+          </ion-spinner>
+        </button>
+
+      </div>
+
+  </form>
+
+  </ion-content>
+</ion-view>

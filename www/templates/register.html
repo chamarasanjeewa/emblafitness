@@ -1,0 +1,89 @@
+
+<ion-view view-title="Register">
+  <ion-content style="background: url(img/login.jpg) center; background-size: cover;">
+    <form name="registerForm" novalidate ng-submit="register(user)">
+
+      <div class="list">
+        <label class="item item-input"   ng-class="{ 'has-error' :registerForm.firstName.$dirty &&  registerForm.firstName.$invalid}">
+          <span class="input-label">First name *</span>
+          <input type="text" name="firstName" ng-model="user.firstName" required>
+
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Last name</span>
+          <input type="text" ng-model="user.lastName">
+        </label>
+        <label class="item item-input" ng-class="{ 'has-error' :registerForm.email.$dirty && registerForm.email.$invalid}">
+          <span class="input-label">Email *</span>
+          <input name="email" type="email"  ng-model="user.email" email-available  required>
+        </label>
+
+        <label class="item item-input" ng-class="{ 'has-error' :registerForm.phoneNumber.$dirty && registerForm.phoneNumber.$invalid}">
+          <span class="input-label">Phone number *</span>
+          <input type="text"  name ="phoneNumber" placeholder="712188862" ng-model="user.phoneNumber" ng-maxlength="9" ng-minlength="9" required>
+        </label>
+
+        <label class="item item-input" ng-class="{ 'has-error' :registerForm.username.$dirty && registerForm.username.$invalid}">
+          <span class="input-label">User Name *</span>
+          <input type="text" name="username"  ng-model="user.username"  username-available ng-minlength="6" required>
+
+        </label>
+
+        <label class="item item-input" ng-class="{ 'has-error' :registerForm.password.dirty && registerForm.password.$invalid}">
+          <span class="input-label">Password *</span>
+          <input type="password"  name="password" ng-model="user.password" required>
+        </label>
+
+
+        <div>
+       <span class="form-errors" ng-messages="registerForm.firstName.$dirty && registerForm.firstName.$error" >
+                        <span class="form-error" ng-message="required" >First name required</span>
+                    </span>
+        </div>
+
+        <div>
+      <span ng-if="registerForm.$pending.emailExists">checking....</span>
+      <span ng-if="registerForm.$error.emailExists" class="form-error">Email already taken</span>
+           <span class="form-errors" ng-messages="registerForm.email.dirty &&registerForm.email.$error">
+
+          <span class="form-error" ng-message="required">Email required.</span>
+             </span>
+
+      </div>
+
+      <div>
+      <span ng-if="registerForm.$pending.usernameExists">checking....</span>
+      <span ng-if="registerForm.$error.usernameExists" class="form-error">username already taken</span>
+        <span class="form-errors" ng-messages="registerForm.username.$dirty &&registerForm.username.$error">
+          <span class="form-error"  ng-message="minlength">Field must contain at least 6 characters</span>
+          <span class="form-error"  ng-message="required">User name required</span>
+         </span>
+      </div>
+      <div>
+        <span class="form-errors" ng-messages="registerForm.phoneNumber.$dirty && registerForm.phoneNumber.$error"  >
+         <span class="form-error" ng-message="minlength">This field is must be at least 9 characters.</span>
+         <span class="form-error" ng-message="maxlength">This field is must be at least 9 characters.</span>
+         <span class="form-error" ng-message="required">Phone number required.</span>
+
+        </span>
+      </div>
+
+
+        <div>
+       <span class="form-errors" ng-messages="registerForm.password.$dirty &&registerForm.password.$error" >
+                        <span class="form-error" ng-message="required" >password required</span>
+                    </span>
+        </div>
+
+      <div class="padding">
+        <button class="button button-block button-positive" ng-disabled="registerForm.$invalid||loading ||registerForm.$pending ">
+          Register
+          <ion-spinner ng-show="loading" icon="spiral">
+          </ion-spinner>
+        </button>
+
+
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
