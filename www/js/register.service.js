@@ -1,12 +1,15 @@
 (function () {
   'use strict';
   angular.module('boadingBudgetApp').factory('registerService',registerService);
-  registerService.$inject = ['$http','ParseConfiguration','$q','$firebase'];
+  registerService.$inject = ['$http','ParseConfiguration','$q','$firebase','KEYS'];
 
-  function registerService($http,ParseConfiguration,$q,$firebase) {
+  function registerService($http,ParseConfiguration,$q,$firebase,KEYS) {
     var parseInitialized = false;
 
     return {
+      fireBase:function(){
+          return new Firebase(KEYS.firebase); 
+      },
       init: function () {
 
 
@@ -29,8 +32,24 @@
       signIn:function(signInData) {
        
         
-        return Parse.User.logIn(signInData.username, signInData.password);
+        //return Parse.User.logIn(signInData.username, signInData.password);
         //return $http.post(apiUrl+'/api/login', signInData);
+
+        var ref = new Firebase(KEYS.firebase); 
+       return ref.authWithPassword({
+          email    : "chamara@eddmbla.asia",
+          password : "sanjusanju"
+        }, function(error, authData) {
+          if (error) {
+            return error;
+           
+          } else {
+            return authData;
+   
+       } 
+     });
+
+
 
       },
       IsUserNameAvailable:function(userName) {
@@ -49,8 +68,11 @@
 
       },
 
-      createUserProfile:function(registerData) {
-        var _parseInitUser = _parseInitUser ? _parseInitUser : Parse.User.current();
+     // createUserProfile:function(registerData) {
+
+        // var ref = new Firebase("blistering-torch-9435.firebaseio.com"); 
+
+       /* var _parseInitUser = _parseInitUser ? _parseInitUser : Parse.User.current();
         var userProfileInfo=Parse.Object.extend("UserProfile")
         var userProfile = new userProfileInfo();
         userProfile.set("firstName", registerData.firstName);
@@ -60,8 +82,8 @@
         userProfile.set("createdBy", _parseInitUser);
         userProfile.set("updatedBy", _parseInitUser);
         userProfile.set("user", _parseInitUser);
-        return userProfile.save(null, {})
-      },
+        return userProfile.save(null, {}
+      },)*/
 
       getCurrentUser:function(){
         return Parse.User.current();
@@ -69,25 +91,34 @@
 
       register:function(registerData) {
 
-            debugger;
+          var ref =new Firebase(KEYS.firebase); 
+      
+          ref.createUser({
+          email    : registerData.email,
+          password : registerData.password
+}).then(function(result){
 
-       /* var user = new Parse.User();
+ return createProfile(registerData, result);
+})
 
-        user.set("username", registerData.username);
-        user.set("password",registerData.password);
-        user.set("firstName", registerData.firstName);
-        user.set("lastName", registerData.lastName);
-        user.set("email", registerData.email);
-        user.set("phoneNumber", registerData.phoneNumber);
-        return user.signUp(null, {})
-*/
+function createProfile(registerData, user){ 
+ var ref =new Firebase(KEYS.firebase); 
 
-var ref = new Firebase("blistering-torch-9435.firebaseio.com"); 
-return    ref.createUser({
-  email    : registerData.email,
-  password : registerData.password
+var usersRef = ref.child("userProfile");
 
-});
+usersRef.push({
+  id:user.uid,
+  firstName:registerData.firstName,
+  lastName:registerData.lastName,
+  email:registerData.email,
+  phoneNumber:registerData.phoneNumber,
+
+    }
+);
+
+
+
+};
 
 
       }

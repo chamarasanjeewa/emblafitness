@@ -1,5 +1,10 @@
 
+
 angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','ionic-datepicker','firebase'])
+
+angular.module('boadingBudgetApp').constant('KEYS', {
+    firebase: 'blistering-torch-9435.firebaseio.com',
+  })
 
 angular.module('boadingBudgetApp').run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -95,6 +100,11 @@ angular.module('boadingBudgetApp').config(function($stateProvider, $urlRouterPro
 angular.module('boadingBudgetApp').value('ParseConfiguration', {
   applicationId: "HnE16qwAs55KzdexNiFmntJ0ehPOCYqYvVi0Fmsq",
   javascriptKey: "HuHoGwWTceeTvqHOwNa611QcHjzpDAcmQyuApOCz",
+  googleId:"blistering-torch-9435.firebaseio.com"
+})
+
+angular.module('boadingBudgetApp').value('FireBaseConfiguration', {
+  
   googleId:"blistering-torch-9435.firebaseio.com"
 })
 

@@ -2,10 +2,10 @@
 (function () {
   'use strict';
   angular.module('boadingBudgetApp').controller('LoginCtrl',LoginCtrl);
-  LoginCtrl.$inject = ['$scope','$timeout','$stateParams','$state','ionicMaterialInk','registerService','$firebaseSimpleLogin'];
+  LoginCtrl.$inject = ['$scope','$timeout','$stateParams','$state','ionicMaterialInk','registerService'];
 
 
-  function LoginCtrl($scope, $timeout, $stateParams,$state, ionicMaterialInk,registerService,$firebaseSimpleLogin) {
+  function LoginCtrl($scope, $timeout, $stateParams,$state, ionicMaterialInk,registerService) {
    $scope.loginError=null;
    $scope.loading=false;
    $scope.$parent.clearFabs();
@@ -17,27 +17,10 @@
    $scope.signIn = function(user) {
    $scope.loading=true;
 
-var firebaseObj = new Firebase("blistering-torch-9435.firebaseio.com"); 
-        var loginObj = $firebaseSimpleLogin(firebaseObj);
-
-        debugger;
-
-         loginObj.$login('password', {
-            email: 'chamara.sanjeewa@gmail.com',
-            password: 'sanjusanju'
-        })
-        .then(function(user) {
-            // Success callback
-            console.log('Authentication successful');
-        }, function(error) {
-            // Failure callback
-            console.log('Authentication failure');
-        });
-
-
-
-   /*registerService.init();
-   registerService.signIn(user)
+   var firebaseObj = new Firebase("blistering-torch-9435.firebaseio.com"); 
+      
+   //registerService.init();
+   var res=registerService.signIn(user)
    .then(function (_data) {
    $state.go('app.profile');
    $scope.loading=false;
@@ -47,7 +30,7 @@ var firebaseObj = new Firebase("blistering-torch-9435.firebaseio.com");
    console.log('unauthorized')
    $scope.loading=false;
    $scope.$apply()
-   });*/
+   });
 
    };
 
