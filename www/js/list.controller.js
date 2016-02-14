@@ -1,12 +1,18 @@
 (function () {
   'use strict';
   angular.module('boadingBudgetApp').controller('purchasedListController',purchasedListController);
-  purchasedListController.$inject = ['$scope','$state','purchaseService','registerService'];
+  purchasedListController.$inject = ['$scope','$state','purchaseService','registerService','moment'];
 
-  function purchasedListController($scope,$state,purchaseService,registerService) {
+  function purchasedListController($scope,$state,purchaseService,registerService,moment) {
     $scope.loading = true;
     $scope.totalSum=0;
     $scope.filterOptions={};
+
+    $scope.date = new moment();
+
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };
 
     var currentDate=new Date();
     $scope.filterOptions.year=($scope.filterOptions.year!=undefined)?$scope.filterOptions.year :currentDate.getFullYear().toString();
@@ -14,38 +20,39 @@
 
 
     $scope.getPurchasedInfo=function(){
-      $scope.itemList=[];
+    $scope.itemList=[];
+    var dateList=[];
+    var bmiList=[];
+    var recommendedbmiList=[];
 
-      purchaseService.init();
+     
       purchaseService.getList($scope.filterOptions)
         .then(function(result) {
 
-          if(result!=null){
+           angular.forEach(result, function(value, key){
+          
+           var recordDate= moment(value.date).format("DD/mm");
+           var bmi=purchaseService.calculateBMI(value.height,value.weight);
+           dateList.push(recordDate)
+           bmiList.push(bmi);
+           recommendedbmiList.push(25);
+          });
+         
+        $scope.labels =dateList;// ["January", "February", "March", "April", "May", "June", "July"];
+        $scope.series = ['recommended BMI','Your BMI'];
+        $scope.data = [
+         recommendedbmiList,// [25,25,25,25,25,25,25,25,25],
+         bmiList// [28,35,32,27,24,32,26,34,45]
+        ];
+      
+          /*if(result!=null){
 
-            var currentUser=registerService.getCurrentUser();
-
-            for (var i = 0; i < result.length; i++) {
-              var purchasedItem={
-                objectId:result[i].id,
-                text: result[i].get("text"),
-                amount: result[i].get("amount"),
-                purchasedDate: result[i].get("purchasedDate"),
-                createdBy:result[i].get("createdBy").get("firstName"),
-                deletable:(currentUser.get("username")==result[i].get("createdBy").get("username"))
-
-              }
-             $scope.itemList.push(purchasedItem);
-            }
-            $scope.loading = false;
-            if($scope.itemList!=undefined){
-              $scope.totalSum = Object.keys($scope.itemList).map(function(k){
-                return +$scope.itemList[k].amount;
-              }).reduce(function(a,b){ return a + b },0);
-              $scope.$apply()
-            } else{
-              $scope.itemList=[];
-            }
+           $scope.itemList=result;
+           
           }
+           */
+            $scope.loading = false;
+            
 
         });
 

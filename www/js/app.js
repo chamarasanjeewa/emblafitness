@@ -1,10 +1,12 @@
 
 
-angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','ionic-datepicker','firebase'])
+angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','firebase','chart.js', 'angularMoment'])
 
 angular.module('boadingBudgetApp').constant('KEYS', {
     firebase: 'blistering-torch-9435.firebaseio.com',
   })
+
+//angular.module('boadingBudgetApp').constant("moment", moment);
 
 angular.module('boadingBudgetApp').run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -97,35 +99,8 @@ angular.module('boadingBudgetApp').config(function($stateProvider, $urlRouterPro
     $urlRouterProvider.otherwise('/app/login');
 });
 
-angular.module('boadingBudgetApp').value('ParseConfiguration', {
-  applicationId: "HnE16qwAs55KzdexNiFmntJ0ehPOCYqYvVi0Fmsq",
-  javascriptKey: "HuHoGwWTceeTvqHOwNa611QcHjzpDAcmQyuApOCz",
-  googleId:"blistering-torch-9435.firebaseio.com"
-})
 
-angular.module('boadingBudgetApp').value('FireBaseConfiguration', {
-  
-  googleId:"blistering-torch-9435.firebaseio.com"
-})
 
-angular.module('boadingBudgetApp').directive('usernameAvailable', function($timeout, $q,registerService) {
-  return {
-    restrict: 'AE',
-    require: 'ngModel',
-    link: function(scope, elm, attr, model) {
-      model.$asyncValidators.usernameExists = function() {
-        registerService.init();
-        return registerService.IsUserNameAvailable(model.$viewValue).then(function(result){
-
-          $timeout(function(){
-            model.$setValidity('usernameExists', result.length==0);
-          }, 1000);
-        });
-
-      };
-    }
-  }
-});
 
 angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout, $q,registerService) {
   return {
@@ -135,7 +110,7 @@ angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout
       model.$asyncValidators.emailExists = function() {
         registerService.init();
         return registerService.IsEmailAvailable(model.$viewValue).then(function(result){
-
+          debugger;
           $timeout(function(){
             model.$setValidity('emailExists', result.length==0);
           }, 1000);

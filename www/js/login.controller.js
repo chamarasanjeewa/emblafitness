@@ -17,16 +17,13 @@
    $scope.signIn = function(user) {
    $scope.loading=true;
 
-   var firebaseObj = new Firebase("blistering-torch-9435.firebaseio.com"); 
-      
-   //registerService.init();
-   var res=registerService.signIn(user)
+ var res=registerService.signIn(user)
    .then(function (_data) {
    $state.go('app.profile');
    $scope.loading=false;
 
    }, function (_error) {
-   $scope.loginError="User name or password invalid or not connected to internet";
+   $scope.loginError="Email or password invalid or not connected to internet";
    console.log('unauthorized')
    $scope.loading=false;
    $scope.$apply()
