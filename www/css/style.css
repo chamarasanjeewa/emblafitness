@@ -137,38 +137,127 @@ label.item.valid-lr {
 }
 
 /*ranger*/
-.ranger-status{
+
+.ranger-status {
     background: #fff;
 }
-.ranger-status p{
+.ranger-status p {
     display: inline-block;
     width: calc(100%/3);
     margin-bottom: 0;
     padding: 10px 5px;
     background: #fff;
-	
 }
-.ranger-status p span{
+.ranger-status p span {
     font-size: 12px;
     display: block;
 }
-.ranger-status div{
+.ranger-status div {
     padding: 5px 0;
 }
 .ranger-result {
-	height: 2px;
     background: #fff;
 }
 .ranger-graph {
     width: 100%;
     height: 30px;
     display: block;
-    background: rgba(52, 208, 255, 1);
-    background: -moz-linear-gradient(left, rgba(52, 208, 255, 1) 0%, rgba(68, 161, 71, 1) 36%, rgba(251, 205, 0, 1) 58%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(52, 208, 255, 1)), color-stop(36%, rgba(68, 161, 71, 1)), color-stop(58%, rgba(251, 205, 0, 1)), color-stop(72%, rgba(255, 142, 21, 1)), color-stop(100%, rgba(255, 82, 82, 1)));
-    background: -webkit-linear-gradient(left, rgba(52, 208, 255, 1) 0%, rgba(68, 161, 71, 1) 36%, rgba(251, 205, 0, 1) 58%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
-    background: -o-linear-gradient(left, rgba(52, 208, 255, 1) 0%, rgba(68, 161, 71, 1) 36%, rgba(251, 205, 0, 1) 58%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
-    background: -ms-linear-gradient(left, rgba(52, 208, 255, 1) 0%, rgba(68, 161, 71, 1) 36%, rgba(251, 205, 0, 1) 58%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
-    background: linear-gradient(to right, rgba(52, 208, 255, 1) 0%, rgba(68, 161, 71, 1) 36%, rgba(251, 205, 0, 1) 58%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#34d0ff', endColorstr='#ff5252', GradientType=1);
+    background: rgba(255, 82, 82, 1);
+    background: -moz-linear-gradient(left, rgba(255, 82, 82, 1) 0%, rgba(68, 161, 71, 1) 50%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 82, 82, 1)), color-stop(50%, rgba(68, 161, 71, 1)), color-stop(72%, rgba(255, 142, 21, 1)), color-stop(100%, rgba(255, 82, 82, 1)));
+    background: -webkit-linear-gradient(left, rgba(255, 82, 82, 1) 0%, rgba(68, 161, 71, 1) 50%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
+    background: -o-linear-gradient(left, rgba(255, 82, 82, 1) 0%, rgba(68, 161, 71, 1) 50%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 82, 82, 1) 0%, rgba(68, 161, 71, 1) 50%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
+    background: linear-gradient(to right, rgba(255, 82, 82, 1) 0%, rgba(68, 161, 71, 1) 50%, rgba(255, 142, 21, 1) 72%, rgba(255, 82, 82, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ff5252', endColorstr='#ff5252', GradientType=1);
+}
+
+/*ranger*/
+
+input[type=range].range {
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 0;
+}
+input[type=range].range:focus {
+    outline: none;
+}
+input[type=range].range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+input[type=range].range::-webkit-slider-thumb {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 30px solid #fff;
+    /*  height: 36px;
+  width: 16px;
+  background: #000000;*/
+    cursor: pointer;
+    -webkit-appearance: none;
+    /*margin-top: -13.8px;*/
+}
+input[type=range].range:focus::-webkit-slider-runnable-track {
+    background: #ffffff;
+}
+input[type=range].range::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+input[type=range].range::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    border: 0px solid #000000;
+    height: 36px;
+    width: 16px;
+    border-radius: 3px;
+    background: #000000;
+    cursor: pointer;
+}
+input[type=range].range::-ms-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+input[type=range].range::-ms-fill-lower {
+    background: #d4d4d4;
+    border: 0px solid #010101;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range].range::-ms-fill-upper {
+    background: #ffffff;
+    border: 0px solid #010101;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range].range::-ms-thumb {
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    border: 0px solid #000000;
+    height: 36px;
+    width: 16px;
+    border-radius: 3px;
+    background: #000000;
+    cursor: pointer;
+    height: 8.4px;
+}
+input[type=range].range:focus::-ms-fill-lower {
+    background: #ffffff;
+}
+input[type=range].range:focus::-ms-fill-upper {
+    background: #ffffff;
 }
