@@ -26,8 +26,13 @@
       },
 
       getLatest : function() {
-
       
+      var ref =new Firebase(KEYS.firebase); 
+      var uid = $firebaseAuth(ref).$getAuth().uid;
+      var bmiRef = ref.child("bmi");
+      var result=  $firebaseObject( bmiRef.orderByChild("dateTimeStamp").limitToLast(1));
+      return result.$loaded()
+
       },
       
       getList : function(options) {
@@ -35,7 +40,7 @@
       var ref =new Firebase(KEYS.firebase); 
       var uid = $firebaseAuth(ref).$getAuth().uid;
       var bmiRef = ref.child("bmi");
-      bmiRef.orderByChild("userId").limitToLast(1000);
+      
       var result=  $firebaseObject( bmiRef.orderByChild("userId").limitToLast(1000));
       return result.$loaded()
       },
@@ -44,13 +49,15 @@
        var ref =new Firebase(KEYS.firebase); 
       var uid = $firebaseAuth(ref).$getAuth().uid;
        var currentDate=new Date().toString();
+       var dateTimeStamp=new Date().getTime();
        var bmiRef = ref.child("bmi")
 
        return bmiRef.push({
           userId:uid,
           height:data.height,
           weight:data.weight,
-          date: currentDate
+          date: currentDate,
+          dateTimeStamp:dateTimeStamp
             }
         );
 

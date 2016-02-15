@@ -7,7 +7,7 @@
     $scope.loading = true;
     $scope.totalSum=0;
     $scope.filterOptions={};
-
+    $scope.latestBMI={};
     $scope.date = new moment();
 
   $scope.onClick = function (points, evt) {
@@ -24,9 +24,7 @@
     var dateList=[];
     var bmiList=[];
     var recommendedbmiList=[];
-
-     
-      purchaseService.getList($scope.filterOptions)
+    purchaseService.getList($scope.filterOptions)
         .then(function(result) {
 
            angular.forEach(result, function(value, key){
@@ -41,25 +39,32 @@
         $scope.labels =dateList;// ["January", "February", "March", "April", "May", "June", "July"];
         $scope.series = ['recommended BMI','Your BMI'];
         $scope.data = [
-         recommendedbmiList,// [25,25,25,25,25,25,25,25,25],
-         bmiList// [28,35,32,27,24,32,26,34,45]
+         recommendedbmiList,
+         bmiList
         ];
-      
-          /*if(result!=null){
-
-           $scope.itemList=result;
-           
-          }
-           */
-            $scope.loading = false;
+                  $scope.loading = false;
             
 
         });
 
     }
 
+    $scope.getLatest=function(){
 
+     purchaseService.getLatest().then(function(result){
 
+             angular.forEach(result, function(value, key){
+             var bmi=purchaseService.calculateBMI(value.height,value.weight);
+             $scope.latestBMI={
+                height:value.height,
+                weight:value.weight,
+                bmi:bmi
+
+             };
+             });
+
+          })
+    }
 
     $scope.delete=function(item){
       $scope.loading = true;
@@ -68,15 +73,13 @@
           $scope.getPurchasedInfo();
         })
       })
-      //.error(function(err){
-      /*    $scope.getPurchasedInfo();
-       console.log('error deleting record'+err)
-       // $scope.loading = false;
-       });*/
+      
     }
 
-    $scope.$parent.$on( "$ionicView.enter", function() {
+     $scope.$parent.$on( "$ionicView.enter", function() {
+      $scope.getLatest();
       $scope.getPurchasedInfo();
+
     });
   }
 
