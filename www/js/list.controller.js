@@ -38,6 +38,7 @@
          
         $scope.labels =dateList;// ["January", "February", "March", "April", "May", "June", "July"];
         $scope.series = ['recommended BMI','Your BMI'];
+        $scope.colours=['Blue','red']
         $scope.data = [
          recommendedbmiList,
          bmiList

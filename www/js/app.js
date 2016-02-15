@@ -102,7 +102,7 @@ angular.module('boadingBudgetApp').config(function($stateProvider, $urlRouterPro
 
 
 
-angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout, $q,registerService) {
+/*angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout, $q,registerService) {
   return {
     restrict: 'AE',
     require: 'ngModel',
@@ -119,5 +119,5 @@ angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout
       };
     }
   }
-});
+});*/
 

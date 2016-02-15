@@ -2,8 +2,11 @@
 
     <ion-content style="background: url(img/login.jpg) center; background-size: cover;">
 <div class="ranger">
+<div class="row">
+           <div>Latest BMI</div>
+        </div>
     <div class="ranger-status"> 
-       <div>Your latest BMI height</div>
+       
         <p><span>Height :</span> {{latestBMI.height}}</p><p><span>weight :</span> {{latestBMI.weight}}</p><p><span>bmi : </span> {{latestBMI.bmi}}</p>
     </div>
     <div class="ranger-result">
@@ -13,9 +16,15 @@
         
     </div>
 </div>
+<<<<<<< HEAD
        <!-- Your latest BMI height : {{latestBMI.height}} weight : {{latestBMI.weight}} bmi : {{latestBMI.bmi}}-->
+=======
+       <div class="row">
+           <div>History</div>
+        </div>
+>>>>>>> development
         <div class="row">
-            <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick">
+            <canvas id="line" class="chart chart-line" chart-data="data" chart-colours="colors" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick">
             </canvas>
         </div>
 
