@@ -7,7 +7,7 @@
     
     return {
       calculateBMI:function(height,weight){
-          var bmi = (weight) / (height.100 * height/100);
+          var bmi = (weight) / (height/100 * height/100);
           return bmi;
       },
       getBMIState:function(bmi){
