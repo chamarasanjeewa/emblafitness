@@ -1,84 +1,84 @@
 (function () {
   'use strict';
   angular.module('boadingBudgetApp').factory('registerService',registerService);
-  registerService.$inject = ['$http','ParseConfiguration','$q'];
+  registerService.$inject = ['$http','$q','$firebase','KEYS',"$firebaseObject",'$firebaseAuth'];
 
-  function registerService($http,ParseConfiguration,$q) {
-    var parseInitialized = false;
-
-
+  function registerService($http,$q,$firebase,KEYS,$firebaseObject,$firebaseAuth) {
+   
     return {
+      fireBase:function(){
+          return new Firebase(KEYS.firebase); 
+      },
       init: function () {
-
-
-        // if initialized, then return the activeUser
-        if (parseInitialized === false) {
-          Parse.initialize(ParseConfiguration.applicationId, ParseConfiguration.javascriptKey);
-          parseInitialized = true;
-          console.log("parse initialized in init function");
-        }
-
-        var currentUser = Parse.User.current();
-        if (currentUser) {
-          return $q.when(currentUser);
-        } else {
-          return $q.reject({error: "noUser"});
-        }
-
       },
 
       signIn:function(signInData) {
-
-        return Parse.User.logIn(signInData.username, signInData.password);
-        //return $http.post(apiUrl+'/api/login', signInData);
-
+       
+        var ref = new Firebase(KEYS.firebase); 
+       return ref.authWithPassword({
+          email    : signInData.email,
+          password : signInData.password
+        })
       },
-      IsUserNameAvailable:function(userName) {
-        var query = new Parse.Query(Parse.User);
-        query.equalTo("username", userName);  // find all the women
-        return  query.find();
-
-
-      },
+      
       IsEmailAvailable:function(email) {
 
-        var query = new Parse.Query(Parse.User);
-        query.equalTo("email", email);  // find all the women
-        return  query.find();
-
-
+       var ref =new Firebase(KEYS.firebase)
+       var refUserProfile =ref.child('userProfile').child().child('email');
+       debugger; 
+       var result=  $firebaseObject( refUserProfile.equalTo(email));
+       return result.$loaded()
+     
       },
 
-      createUserProfile:function(registerData) {
-        var _parseInitUser = _parseInitUser ? _parseInitUser : Parse.User.current();
-        var userProfileInfo=Parse.Object.extend("UserProfile")
-        var userProfile = new userProfileInfo();
-        userProfile.set("firstName", registerData.firstName);
-        userProfile.set("lastName", registerData.lastName);
-        userProfile.set("email", registerData.email);
-        userProfile.set("phoneNumber", registerData.phoneNumber);
-        userProfile.set("createdBy", _parseInitUser);
-        userProfile.set("updatedBy", _parseInitUser);
-        userProfile.set("user", _parseInitUser);
-        return userProfile.save(null, {})
-      },
-
+    
       getCurrentUser:function(){
-        return Parse.User.current();
+
+        var ref =new Firebase(KEYS.firebase)
+       
+        var uid = $firebaseAuth(ref).$getAuth().uid;
+
+        var refUserProfile =ref.child('userProfile'); 
+        var currentUserProfile=  $firebaseObject(refUserProfile.child(uid));
+
+       return currentUserProfile.$loaded()
+        
+  .catch(function(err) {
+    $scope.error = 'There was an error with the request';
+});
+      
       },
 
       register:function(registerData) {
 
+          var ref =new Firebase(KEYS.firebase); 
+      
+         return ref.createUser({
+          email    : registerData.email,
+          password : registerData.password
+        }).then(function(result){
 
-        var user = new Parse.User();
+         return createProfile(registerData, result);
+        })
 
-        user.set("username", registerData.username);
-        user.set("password",registerData.password);
-        user.set("firstName", registerData.firstName);
-        user.set("lastName", registerData.lastName);
-        user.set("email", registerData.email);
-        user.set("phoneNumber", registerData.phoneNumber);
-        return user.signUp(null, {})
+function createProfile(registerData, user){ 
+ var ref =new Firebase(KEYS.firebase); 
+
+var usersRef = ref.child("userProfile").child(user.uid);
+
+  usersRef.set({
+    id:user.uid,
+    firstName:registerData.firstName,
+    lastName:registerData.lastName,
+    email:registerData.email,
+    phoneNumber:registerData.phoneNumber,
+
+      }
+  );
+
+
+
+};
 
 
       }

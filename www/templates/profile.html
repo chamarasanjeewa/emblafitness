@@ -9,48 +9,15 @@
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
             <a ui-sref="app.list" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> Purchased
+                <i class="icon ion-arrow-graph-up-right"></i> History
             </a>
             <a ui-sref="app.item" class="tab-item">
-                <i class="icon ion-android-people"></i> Add item
+                <i class="icon ion-android-people"></i> BMI
             </a>
 
         </div>
         <h4 class="content padding double-padding-x">Notifications</h4>
         <div class="list animate-fade-slide-in-right" >
 
-          <a ui-sref="app.friends" class="item item-avatar item-icon-right" ng-repeat="item in recordList" >
-            <img src="img/jon-snow.jpg">
-            <h2>{{item.firstName}}</h2>
-            <p> did {{item.amount}}worth transaction on {{item.purchasedDate|date:'MM/dd/yyyy'}}</p>
-            <i class="icon ion-chatbubble muted"></i>
-          </a>
-        <!--  <a ui-sref="app.friends" class="item item-avatar item-icon-right" >
-
-            <img src="img/jon-snow.jpg">
-            <h2>{{record.firstName}}</h2>
-            <p> did {{record.amount}}worth transaction on {{record.purchasedDate|date:'MM/dd/yyyy'}}</p>
-            <i class="icon ion-chatbubble muted"></i>
-          </a>
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-
-                <img src="img/jon-snow.jpg">
-                <h2>Rasika samantha</h2>
-                <p>Purchased items on 1/2/2016</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/sansa.jpg">
-                <h2>Harshi rathnayake</h2>
-                <p>Paid a bill on 1/4/2016</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/tyrion.jpg">
-                <h2>Ashan ramidu</h2>
-                <p>Purchased item on 1/6/2016</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-       --> </div>
     </ion-content>
 </ion-view>

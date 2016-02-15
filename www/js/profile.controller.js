@@ -32,40 +32,13 @@
     ionicMaterialInk.displayEffect();
 
     $scope.getUserData = function () {
-        registerService.init();
-       var currentUser= registerService.getCurrentUser()
-       $scope.userName= currentUser.get("username")
-
+      
+       var currentUser= registerService.getCurrentUser().then(function(data){
+       $scope.userName= data.firstName;
+       })
     };
     $scope.getLatestInfo=function(){
-
-      purchaseService.init();
-      purchaseService.getLatest($scope.filterOptions)
-        .then(function(result) {
-
-          if(result!=null){
-
-            var currentUser=registerService.getCurrentUser();
-
-            for (var i = 0; i < result.length; i++) {
-              var purchasedItem={
-                objectId:result[i].id,
-                text: result[i].get("text"),
-                amount: result[i].get("amount"),
-                purchasedDate: result[i].get("purchasedDate"),
-                createdBy:result[i].get("createdBy").get("firstName")
-
-              }
-              $scope.recordList.push(purchasedItem);
-          
-            }
-            $scope.$apply();
-            $scope.loading = false;
-
-          }
-
-        });
-
+      
     }
 
     $scope.$parent.$on( "$ionicView.enter", function() {

@@ -1,12 +1,18 @@
 (function () {
   'use strict';
   angular.module('boadingBudgetApp').controller('purchasedListController',purchasedListController);
-  purchasedListController.$inject = ['$scope','$state','purchaseService','registerService'];
+  purchasedListController.$inject = ['$scope','$state','purchaseService','registerService','moment'];
 
-  function purchasedListController($scope,$state,purchaseService,registerService) {
+  function purchasedListController($scope,$state,purchaseService,registerService,moment) {
     $scope.loading = true;
     $scope.totalSum=0;
     $scope.filterOptions={};
+    $scope.latestBMI={};
+    $scope.date = new moment();
+
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };
 
     var currentDate=new Date();
     $scope.filterOptions.year=($scope.filterOptions.year!=undefined)?$scope.filterOptions.year :currentDate.getFullYear().toString();
@@ -14,45 +20,51 @@
 
 
     $scope.getPurchasedInfo=function(){
-      $scope.itemList=[];
-
-      purchaseService.init();
-      purchaseService.getList($scope.filterOptions)
+    $scope.itemList=[];
+    var dateList=[];
+    var bmiList=[];
+    var recommendedbmiList=[];
+    purchaseService.getList($scope.filterOptions)
         .then(function(result) {
 
-          if(result!=null){
-
-            var currentUser=registerService.getCurrentUser();
-
-            for (var i = 0; i < result.length; i++) {
-              var purchasedItem={
-                objectId:result[i].id,
-                text: result[i].get("text"),
-                amount: result[i].get("amount"),
-                purchasedDate: result[i].get("purchasedDate"),
-                createdBy:result[i].get("createdBy").get("firstName"),
-                deletable:(currentUser.get("username")==result[i].get("createdBy").get("username"))
-
-              }
-             $scope.itemList.push(purchasedItem);
-            }
-            $scope.loading = false;
-            if($scope.itemList!=undefined){
-              $scope.totalSum = Object.keys($scope.itemList).map(function(k){
-                return +$scope.itemList[k].amount;
-              }).reduce(function(a,b){ return a + b },0);
-              $scope.$apply()
-            } else{
-              $scope.itemList=[];
-            }
-          }
+           angular.forEach(result, function(value, key){
+          
+           var recordDate= moment(value.date).format("DD/mm");
+           var bmi=purchaseService.calculateBMI(value.height,value.weight);
+           dateList.push(recordDate)
+           bmiList.push(bmi);
+           recommendedbmiList.push(25);
+          });
+         
+        $scope.labels =dateList;// ["January", "February", "March", "April", "May", "June", "July"];
+        $scope.series = ['recommended BMI','Your BMI'];
+        $scope.data = [
+         recommendedbmiList,
+         bmiList
+        ];
+                  $scope.loading = false;
+            
 
         });
 
     }
 
+    $scope.getLatest=function(){
 
+     purchaseService.getLatest().then(function(result){
 
+             angular.forEach(result, function(value, key){
+             var bmi=purchaseService.calculateBMI(value.height,value.weight);
+             $scope.latestBMI={
+                height:value.height,
+                weight:value.weight,
+                bmi:bmi
+
+             };
+             });
+
+          })
+    }
 
     $scope.delete=function(item){
       $scope.loading = true;
@@ -61,15 +73,13 @@
           $scope.getPurchasedInfo();
         })
       })
-      //.error(function(err){
-      /*    $scope.getPurchasedInfo();
-       console.log('error deleting record'+err)
-       // $scope.loading = false;
-       });*/
+      
     }
 
-    $scope.$parent.$on( "$ionicView.enter", function() {
+     $scope.$parent.$on( "$ionicView.enter", function() {
+      $scope.getLatest();
       $scope.getPurchasedInfo();
+
     });
   }
 

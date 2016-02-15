@@ -1,5 +1,12 @@
 
-angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','ionic-datepicker'])
+
+angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','firebase','chart.js', 'angularMoment'])
+
+angular.module('boadingBudgetApp').constant('KEYS', {
+    firebase: 'blistering-torch-9435.firebaseio.com',
+  })
+
+//angular.module('boadingBudgetApp').constant("moment", moment);
 
 angular.module('boadingBudgetApp').run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -92,31 +99,10 @@ angular.module('boadingBudgetApp').config(function($stateProvider, $urlRouterPro
     $urlRouterProvider.otherwise('/app/login');
 });
 
-angular.module('boadingBudgetApp').value('ParseConfiguration', {
-  applicationId: "CiaQ24ctvOlZPQot9sLgQi1f2OdNXfJ5sr6FKPEr",
-  javascriptKey: "5BYUb144Vr1WYRAUW4kOVjKvjN5uBHuoezV4AYnA"
-})
 
-angular.module('boadingBudgetApp').directive('usernameAvailable', function($timeout, $q,registerService) {
-  return {
-    restrict: 'AE',
-    require: 'ngModel',
-    link: function(scope, elm, attr, model) {
-      model.$asyncValidators.usernameExists = function() {
-        registerService.init();
-        return registerService.IsUserNameAvailable(model.$viewValue).then(function(result){
 
-          $timeout(function(){
-            model.$setValidity('usernameExists', result.length==0);
-          }, 1000);
-        });
 
-      };
-    }
-  }
-});
-
-angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout, $q,registerService) {
+/*angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout, $q,registerService) {
   return {
     restrict: 'AE',
     require: 'ngModel',
@@ -124,7 +110,7 @@ angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout
       model.$asyncValidators.emailExists = function() {
         registerService.init();
         return registerService.IsEmailAvailable(model.$viewValue).then(function(result){
-
+          debugger;
           $timeout(function(){
             model.$setValidity('emailExists', result.length==0);
           }, 1000);
@@ -133,5 +119,5 @@ angular.module('boadingBudgetApp').directive('emailAvailable', function($timeout
       };
     }
   }
-});
+});*/
 
