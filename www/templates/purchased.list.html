@@ -1,17 +1,22 @@
-
 <ion-view cache-view="false" view-title="BMI variation">
 
-  <ion-content style="background: url(img/login.jpg) center; background-size: cover;">
-Your latest BMI
-height : {{latestBMI.height}} weight : {{latestBMI.weight}} bmi : {{latestBMI.bmi}}
-    <div class="row">
-      <canvas id="line" class="chart chart-line" chart-data="data"
-  chart-labels="labels" chart-legend="true" chart-series="series"
-  chart-click="onClick" >
-</canvas> 
+    <ion-content style="background: url(img/login.jpg) center; background-size: cover;">
+<div class="ranger">
+    <div class="ranger-status"> 
+       <div>Your latest BMI height</div>
+        <p><span>Height :</span> {{latestBMI.height}}</p><p><span>weight :</span> {{latestBMI.weight}}</p><p><span>bmi : </span> {{latestBMI.bmi}}</p>
     </div>
+    <div class="ranger-result"></div>
+    <div class="ranger-graph">
+        
+    </div>
+</div>
+        Your latest BMI height : {{latestBMI.height}} weight : {{latestBMI.weight}} bmi : {{latestBMI.bmi}}
+        <div class="row">
+            <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick">
+            </canvas>
+        </div>
 
 
-  </ion-content>
+    </ion-content>
 </ion-view>
-
