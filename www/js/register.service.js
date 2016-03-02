@@ -64,6 +64,11 @@
 function createProfile(registerData, user){ 
  var ref =new Firebase(KEYS.firebase); 
 
+ ref.authAnonymously(function(error, authData) {
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+
 var usersRef = ref.child("userProfile").child(user.uid);
 
   usersRef.set({
@@ -75,6 +80,11 @@ var usersRef = ref.child("userProfile").child(user.uid);
 
       }
   );
+    
+  }
+});
+
+
 
 
 

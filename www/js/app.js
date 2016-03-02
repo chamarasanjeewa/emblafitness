@@ -1,6 +1,6 @@
 
 
-angular.module('boadingBudgetApp', ['ionic', 'ionic-material', 'ionMdInput','ngMessages','firebase','chart.js', 'angularMoment'])
+angular.module('boadingBudgetApp', ['ionic','ionic.service.core', 'ionic-material', 'ionMdInput','ngMessages','firebase','chart.js', 'angularMoment'])
 
 angular.module('boadingBudgetApp').constant('KEYS', {
     firebase: 'blistering-torch-9435.firebaseio.com',
@@ -17,6 +17,13 @@ angular.module('boadingBudgetApp').run(function($ionicPlatform) {
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+         var push = new Ionic.Push({
+    "debug": true
+  });
+ 
+  push.register(function(token) {
+    console.log("Device token:",token.token);
+  });
     });
 })
 
