@@ -17,13 +17,39 @@ angular.module('boadingBudgetApp').run(function($ionicPlatform) {
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-         var push = new Ionic.Push({
-    "debug": true
-  });
- 
-  push.register(function(token) {
-    console.log("Device token:",token.token);
-  });
+//---------------------
+ var io = Ionic.io();
+    var push = new Ionic.Push({
+      "onNotification": function(notification) {
+        alert('Received push notification!');
+      },
+      "pluginConfig": {
+        "android": {
+          "iconColor": "#0000FF"
+        }
+      }
+    });
+    var user = Ionic.User.current();
+    
+    if (!user.id) {
+      user.id = Ionic.User.anonymousId();
+    }
+    
+    // Just add some dummy data..
+    user.set('name', 'chamara');
+    user.set('test', 'This is my little test');
+    user.save();
+   
+    var callback = function(data) {
+      push.addTokenToUser(user);
+      user.save();
+    };
+    push.register(callback);
+//---------------------
+
+
+
+
     });
 })
 
