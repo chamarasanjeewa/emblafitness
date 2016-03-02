@@ -3,7 +3,7 @@
 angular.module('boadingBudgetApp', ['ionic','ionic.service.core', 'ionic-material', 'ionMdInput','ngMessages','firebase','chart.js', 'angularMoment'])
 
 angular.module('boadingBudgetApp').constant('KEYS', {
-    firebase: 'blistering-torch-9435.firebaseio.com',
+    firebase: 'embla-fitness.firebaseio.com',
   })
 
 //angular.module('boadingBudgetApp').constant("moment", moment);
